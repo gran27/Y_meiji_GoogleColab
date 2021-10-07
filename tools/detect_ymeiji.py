@@ -100,7 +100,11 @@ def getpoints_auto(file, playback_pos=0.5):
 
 
 def show(file, center, edges):
-    out = file.replace("data", "result").replace("mp4", "jpg")
+    if "mp4" in file:
+        out = file.replace("data", "result").replace("mp4", "jpg")
+    elif "MTS" in file:
+        out = file.replace("data", "result").replace("MTS", "jpg")
+
     # edges_name = ["A", "B", "C"]
     cap = cv2.VideoCapture(file)
 

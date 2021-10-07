@@ -56,6 +56,8 @@ def create_armslist(
         exit()
 
     out = file.replace("data", "result")
+    if "MTS" in file:
+        out = out.replace("MTS", "mp4")
     # print(out)
     rst = cv2.VideoWriter(
         out, cv2.VideoWriter_fourcc("m", "p", "4", "v"), 30, (960, 540)
