@@ -3,6 +3,7 @@
 - Googleにログインし、Googleドライブを立ち上げる。
 ## 2. Google Colabの作成
 - マイドライブで右クリックし、Google Colabを新規作成する。
+- もしなかったら、`アプリを追加`からGoogle Colaboratoryをインストールしてページを更新すれば表示される。
 ![colab](https://github.com/gran27/Y_meiji_GoogleColab/blob/main/figs/googlecolab.png)
 ## 3.Googleドライブのマウント
 - Google Colabが開いたら、横に三つ並んでいるアイコンの一番右を押し、Googleドライブをマウントする。

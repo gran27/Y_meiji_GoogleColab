@@ -11,16 +11,20 @@ GPUを使うためGoogle Colab用に改良したので、ローカル上での�
 **コマンドはすべてあらかじめ入力してあるので、それを利用すればよい。再生ボタンを押すと実行できる。**
 ### 1. 動画ファイルをdataフォルダに入れる
 - セットアップを済ませたアカウントでGoogleにログインし、Googleドライブを立ち上げ、動画ファイルをアップロードしておく。
+- MTS形式でも動作する。
 ### 2. `run.ipynb`の起動
-- `run.ipynb`をダブルクリックで開く。
+- Y_meiji_GoogleColabフォルダ内の`run.ipynb`をダブルクリックで開く。
 ### 3.Googleドライブのマウント
 - Google Colabが開いたら、横に三つ並んでいるアイコンの一番右を押し、Googleドライブをマウントする。
+- 完了したら一応真ん中のアイコンを押して更新しておく。
+- エラーが出ず、下の図のようにdriveフォルダが表示されたらOK。
 ![mount](https://github.com/gran27/Y_meiji_GoogleColab/blob/main/figs/mount.png)
 - できないときは以下のコマンドを実行する。`Go to this URL in a browser`の横のURLから`Enter your authorization code`に認証コードをコピぺする。
 ```
 from google.colab import drive
 drive.mount('/content/drive')
 ```
+- もし、「セッションが多すぎます」と出たら、`セッションの管理`を押してすべてのセッションを`終了`させる。そして、右上の`接続`を押す。
 ### 4. 下準備
 実行の前に以下のコマンドを実行する。これはGoogle Colabを開いたときにやる。複数の動画を解析するときは毎回やらなくてOK。
 ```
