@@ -13,8 +13,9 @@ GPUを使うためGoogle Colab用に改良したので、ローカル上での�
 - セットアップを済ませたアカウントでGoogleにログインし、Googleドライブを立ち上げ、動画ファイルをアップロードしておく。
 ### 2. `run.ipynb`の起動
 - `run.ipynb`をダブルクリックで開く。
-### 3. Googleドライブのマウント
+### 3.Googleドライブのマウント
 - Google Colabが開いたら、横に三つ並んでいるアイコンの一番右を押し、Googleドライブをマウントする。
+![mount](https://github.com/gran27/Y_meiji_GoogleColab/blob/main/figs/mount.png)
 - できないときは以下のコマンドを実行する。`Go to this URL in a browser`の横のURLから`Enter your authorization code`に認証コードをコピぺする。
 ```
 from google.colab import drive
@@ -44,16 +45,17 @@ display_jpeg(Image('result/00892.jpg'))
 - 大丈夫であれば`y`と入力する。
 - 予測がずれている場合、`--yth`のあとの数字を0.05など少し小さくすると治ることがあるので、再実行して試すとよい。詳しくはオプションの使い方[options.md](docs/options.md)を参照。
 - 手動の調整はなしに変更済み
+![input](https://github.com/gran27/Y_meiji_GoogleColab/blob/main/figs/yes_no.png)
 - 良い例
-![example_Y](https://github.com/gran27/Y_meiji/blob/main/figs/points_auto.png)
+![example_Y](https://github.com/gran27/Y_meiji_GoogleColab/blob/main/figs/points_auto.png)
 - 悪い例
-![example_Y](https://github.com/gran27/Y_meiji/blob/main/figs/points_auto_bad.png)
+![example_Y](https://github.com/gran27/Y_meiji_GoogleColab/blob/main/figs/points_auto_bad.png)
 ### 5. 解析を待つ
 - 解析中は特に何も表示されないので、気長に待つ。だいたい12分くらいかかる。
 - 停止ボタンで中断することができる。resultフォルダに結果がcsvかtxt形式で、動画がmp4で、Y迷路の予測がjpgで保存されている。
-![example](https://github.com/gran27/Y_meiji/blob/main/figs/ex_show.png)
+![example](https://github.com/gran27/Y_meiji_GoogleColab/blob/main/figs/ex_show.png)
 - 中央の赤い円の内側にマウスがいる時は追跡しない。
-![red circle](https://github.com/gran27/Y_meiji/blob/main/figs/incircle.png)
+![red circle](https://github.com/gran27/Y_meiji_GoogleColab/blob/main/figs/incircle.png)
 
 ## Update History
 - 2021/10/01 ざっくり作成
