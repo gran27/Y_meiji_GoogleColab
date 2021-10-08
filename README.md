@@ -1,71 +1,63 @@
-# Y-meiji
+# Y-meiji for Google Colab
+本プログラムは[以前のY-meiji](https://github.com/gran27/Y_meiji)の改良版である。
+GPUを使うためGoogle Colab用に改良したので、ローカル上でのセットアップは必要ない。
 ## Contents
 * [Quick Start](#quick-start)
-	* [A. gitを使う方法](#A.-gitを使う方法)
-	* [B. zipでダウンロードする方法](#B.-zipでダウンロードする方法)
 * [How To Use](#how-to-use)
 * [Update History](#update-history)
 ## Quick Start
-### A. gitを使う方法
-1. gitのインストール
-- 以下のサイトを参考にgitをインストールする。
-- [GitHubの導入〜基本操作 for Windows](https://qiita.com/Kenta-Okuda/items/c3dcd60a80a82147e1bf)
-- [【Windows】Gitの環境構築をしよう！](https://prog-8.com/docs/git-env-win)
-2. Git Bashを開く
-- 以降のコマンドはすべてGit Bashに入力していく。
-3. clone
-- 以下のコマンドを実行する。
-```
-# Desktopに置くとき
-cd Desktop/Y_meiji
-git clone https://github.com/gran27/Y_meiji.git
-```
-4. セットアップ
-- 以下のコマンドを実行する。
-```
-./setup.sh
-```
-### B. zipでダウンロードする方法
-- このページのCode（緑のボタン）の中のDownload ZIPからダウンロードできる。
-- フォルダの名前をY_meijiに直しておく。
-![savezip](https://github.com/gran27/Y_meiji/blob/main/figs/savezip.png)
-
+- 初回のみ[setup.md](docs/setup.md)を見てセットアップする。
 ## How To Use
-### 1. コマンドプロンプトを立ち上げる
-Windowsキーを押してcmdと入力しEnter
-### 2. ダウンロードした場所まで移動する
-- 例）Desktop上においてある場合
-  ```
-  cd Desktop/Y_meiji
-  ```
-### 3. 動画ファイルをdataフォルダに入れる
+**コマンドはすべてあらかじめ入力してあるので、それを利用すればよい。再生ボタンを押すと実行できる。**
+### 1. 動画ファイルをdataフォルダに入れる
+- セットアップを済ませたアカウントでGoogleにログインし、Googleドライブを立ち上げ、動画ファイルをアップロードしておく。
+### 2. `run.ipynb`の起動
+- `run.ipynb`をダブルクリックで開く。
+### 3. Googleドライブのマウント
+- Google Colabが開いたら、横に三つ並んでいるアイコンの一番右を押し、Googleドライブをマウントする。
+- できないときは以下のコマンドを実行する。`Go to this URL in a browser`の横のURLから`Enter your authorization code`に認証コードをコピぺする。
+```
+from google.colab import drive
+drive.mount('/content/drive')
+```
+### 4. 下準備
+実行の前に以下のコマンドを実行する。これはGoogle Colabを開いたときにやる。複数の動画を解析するときは毎回やらなくてOK。
+```
+%cd drive/MyDrive/Y_meiji_GoogleColab
+%pip install -qr requirements.txt
+```
 ### 4. 実行
-オプションの使い方は[options.md](docs/options.md)を参照。
-- 例）01504.MTSを開始5.5秒の位置から評価するとき
-  ```
-  python run.py data/01504.MTS --show -s 5.5
-  ```
+- **GPUになっているか確認すること。**
+- オプションの使い方は[options.md](docs/options.md)を参照。
+- 例）00892.MTSを開始9秒の位置から評価、結果の動画を2倍速にしたいとき
+```
+!python run.py data/00892.MTS --shift 9 --outspeed 2 --yth 0.1 --weights model/best.pt
+from IPython.display import Image,display_jpeg
+display_jpeg(Image('result/00892.jpg'))
+```
 #### 注意
 - -sオプションの数字はマウスを置いた瞬間に合わせること。この時間から8分がカウントされる。
 - 開始位置から動画の長さが8分もないときはプログラムが中断される。  
-  例）動画の長さが8分5秒で`python run.py data/XXXXX.MTS -s 10`と実行したとき
-### 5. Y迷路の予測を確認する。
-Y迷路に沿った線が表示されるので、確認する。確認し終わったら何かキーを押す（だいたいなんでもOK）。
+  - 例）動画の長さが8分5秒で`python run.py data/XXXXX.MTS --shift 10`と実行したとき
+#### Y迷路の予測の確認
+- Google Colabでは予測をすぐに確認できない。そのため「resultフォルダ内の画像を確認しましたか？」と表示されたところで`n`と入力し、大丈夫であるか確認すること。
+- 大丈夫であれば`y`と入力する。
+- 予測がずれている場合、`--yth`のあとの数字を0.05など少し小さくすると治ることがあるので、再実行して試すとよい。詳しくはオプションの使い方[options.md](docs/options.md)を参照。
+- 手動の調整はなしに変更済み
 - 良い例
 ![example_Y](https://github.com/gran27/Y_meiji/blob/main/figs/points_auto.png)
 - 悪い例
 ![example_Y](https://github.com/gran27/Y_meiji/blob/main/figs/points_auto_bad.png)
-### 6. ラインが迷路に沿っているかどうかを入力する
-ラインが迷路に沿っている場合は`y`、沿っていない場合は`n`を入力して`Enter`を押す。
-### 7. （5で`n`を押したときのみ）手動で4つの点を上のバーで調整する
-**決定するときは`q`を押すこと。**
-### 8. 処理が終わるのを待つ
-`q`で中断することができる。resultフォルダに結果がcsvかtxt形式で保存されている。
+### 5. 解析を待つ
+- 解析中は特に何も表示されないので、気長に待つ。だいたい12分くらいかかる。
+- 停止ボタンで中断することができる。resultフォルダに結果がcsvかtxt形式で、動画がmp4で、Y迷路の予測がjpgで保存されている。
 ![example](https://github.com/gran27/Y_meiji/blob/main/figs/ex_show.png)
 - 中央の赤い円の内側にマウスがいる時は追跡しない。
 ![red circle](https://github.com/gran27/Y_meiji/blob/main/figs/incircle.png)
 
-### Update History
+## Update History
 - 2021/10/01 ざっくり作成
 - 2021/10/04 8分に対応、Y迷路のほぼ自動認識の実装
 - 2021/10/05 コードの整理
+- 2021/10/06 モデルの作成
+- 2021/10/08 Google Colab用に修正

@@ -36,5 +36,8 @@ if __name__ == "__main__":
         default=0.1,
         help="If smaller, accuracy to find Y-meiji edges is better (Default: 0.1)",
     )
+    parser.add_argument(
+        "--weights", type=str, default="model/best.pt", help="model path"
+    )
     args = parser.parse_args()
     main(args)

@@ -38,14 +38,14 @@ def detect_arm(img, center, coefs_line, radius_range, model):
 
 
 def create_armslist(
-    file, center, edges, coefs_line, radius_range, start, end, outspeed
+    file, center, edges, coefs_line, radius_range, start, end, weights, outspeed
 ):
     arms = []
     prev_arm = ""
     set_arms = False
     edges_name = ["A", "B", "C"]
 
-    model = torch.hub.load("ultralytics/yolov5", "custom", path="model/best.pt")
+    model = torch.hub.load("ultralytics/yolov5", "custom", path=weights)
     model.conf = 0.5
     model.iou = 0.4
 
@@ -255,6 +255,7 @@ def main(args):
     shift = args.shift
     outspeed = args.outspeed
     yth = args.yth
+    weights = args.weights
 
     outfile = file
     ext = outfile.rsplit(".", 1)[-1]
@@ -264,7 +265,7 @@ def main(args):
     center, edges = detect_ymeiji.getpoints(file, yth)
     coefs_line, radius_range = get_coefs(center, edges)
     arms = create_armslist(
-        file, center, edges, coefs_line, radius_range, start, end, outspeed
+        file, center, edges, coefs_line, radius_range, start, end, weights, outspeed
     )
     activity, working_memory = evaluation(arms)
     print("activity:", activity)
@@ -305,6 +306,9 @@ if __name__ == "__main__":
         type=float,
         default=0.1,
         help="If smaller, accuracy to find Y-meiji edges is better (Default: 0.1)",
+    )
+    parser.add_argument(
+        "--weights", type=str, default="model/best.pt", help="model path"
     )
     args = parser.parse_args()
     main(args)
