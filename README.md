@@ -26,7 +26,7 @@ drive.mount('/content/drive')
 %cd drive/MyDrive/Y_meiji_GoogleColab
 %pip install -qr requirements.txt
 ```
-### 4. 実行
+### 5. 実行
 - **GPUになっているか確認すること。**
 - オプションの使い方は[options.md](docs/options.md)を参照。
 - 例）00892.MTSを開始9秒の位置から評価、結果の動画を2倍速にしたいとき
